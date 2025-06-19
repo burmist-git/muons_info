@@ -10,3 +10,6 @@ muon_impact_R_m_muon_angle_deg.pdf
 convert2root
 histOut_plot_df_short.root
 hist_subRunlist_for_root.root
+runana
+obj/
+histSingle.root

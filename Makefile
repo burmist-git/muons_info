@@ -20,7 +20,7 @@ OUTLIB = ./obj/
 
 #----------------------------------------------------#
 
-all: makedir convert2root
+all: makedir convert2root runana
 
 makedir:
 	mkdir -p $(OUTLIB);
@@ -37,8 +37,19 @@ printmakehelp_and_reminder: convert2root.cpp Makefile
 convert2root: convert2root.cpp
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
+runana: runana.cpp obj/ana.o obj/anabase.o
+	$(CXX) -o runana runana.cpp $(OUTLIB)*.o $(ROOTCFLAGS) $(ROOTLIBS) $(ROOTGLIBS)
+
+obj/ana.o: src/ana.cpp src/ana.hh obj/anabase.o
+	$(CXX) $(CXXFLAGS) -c -I. -o $(OUTLIB)ana.o $<
+
+obj/anabase.o: src/anabase.cpp src/anabase.hh
+	$(CXX) $(CXXFLAGS) -c -I. -o $(OUTLIB)anabase.o $<
+
 clean:
 	rm -f convert2root
+	rm -f runana
 	rm -f *~
 	rm -f .*~
 	rm -f $(OUTLIB)*.o
+	rm -f src/*~
