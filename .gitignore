@@ -2,3 +2,11 @@
 .*~
 subRunlist.csv
 subRunlist_for_root.csv
+subrans_vs_ut.pdf
+test.csv
+test_v0.10.csv
+muon_file.root
+muon_impact_R_m_muon_angle_deg.pdf
+convert2root
+histOut_plot_df_short.root
+hist_subRunlist_for_root.root
