@@ -37,6 +37,7 @@ protected :
   Int_t           day;
   Int_t           ver;
   Int_t           nSubRun;
+  Int_t           nMuonsPerRun;
   Int_t           event_id;
   Double_t        event_time;
   Float_t         mc_energy;
@@ -85,6 +86,7 @@ protected :
    TBranch        *b_day;   //!
    TBranch        *b_ver;   //!
    TBranch        *b_nSubRun;   //!
+   TBranch        *b_nMuonsPerRun;
    TBranch        *b_event_id;   //!
    TBranch        *b_event_time;   //!
    TBranch        *b_mc_energy;   //!
@@ -119,7 +121,9 @@ protected :
                  Int_t Nbin, Float_t Vmin, Float_t Vmax);
   double getUnixTimeFromTime(double d_year, double d_month, double d_day, double d_hour, double d_min, double d_sec);  
   //
-  
+  static void TH2D_divide( TH2D *h2_w, TH2D *h2,TH2D *h2_norm);
+  static void TH1D_divide( TH1D *h1_w, TH1D *h1,TH1D *h1_norm);
+  static void TH1D_divide( TH1D *h1, TH1D *h1_norm, Double_t norm);
 };
 
 #endif

@@ -13,3 +13,11 @@ hist_subRunlist_for_root.root
 runana
 obj/
 histSingle.root
+histSingle_2020year.root
+histSingle_2021year.root
+histSingle_2022year.root
+histSingle_2023year.root
+histSingle_2024year.root
+histSingle_rate.root
+muonrate.pdf
+muonrate_vs_ut.pdf

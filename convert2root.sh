@@ -15,7 +15,7 @@ then
 else
     if [ "$1" = "-d" ]; then
 	echo "-d"
-	#./convert2root 0 muon_file.list muon_file.root
+	./convert2root 0 muon_file.list muon_file.root
 	#./convert2root 0 muon_file_short.list muon_file.root
     elif [ "$1" = "-c" ]; then
 	make clean; make;

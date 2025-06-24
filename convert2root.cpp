@@ -38,6 +38,7 @@ struct muonfileStr {
   Int_t day;
   Int_t ver;
   Int_t nSubRun;
+  Int_t nMuonsPerRun;
   //
   Int_t event_id;
   Double_t event_time;
@@ -77,10 +78,11 @@ struct muonfileListStr {
   Int_t day;
   Int_t ver;
   Int_t nSubRun;
+  Int_t nMuonsPerRun;
 };
 std::vector<muonfileListStr> _muonfileListStr_vec;
 
-void read_file(TString file_name, Int_t run_id,  Int_t year,  Int_t month,  Int_t day,  Int_t ver,  Int_t nSubRun);
+void read_file(TString file_name, Int_t run_id,  Int_t year,  Int_t month,  Int_t day,  Int_t ver,  Int_t nSubRun, Int_t nMuonsPerRun);
 void convert2root(const std::vector<TString> &fileList_v, TString outputRootFile);
 void load_file_list( std::vector<TString> &fileList_v, TString inFileList);
 
@@ -137,6 +139,7 @@ void load_file_list( std::vector<TString> &fileList_v, TString inFileList){
   TString ver;
   TString the_file;
   Int_t nlines_csv;
+  Int_t nMuonsPerRun;
   Int_t nSubRun;
   //
   if(fFile.is_open()){
@@ -154,6 +157,7 @@ void load_file_list( std::vector<TString> &fileList_v, TString inFileList){
 	  nSubRun){
       //
       fileList_v.push_back(the_file);
+      nMuonsPerRun = nlines_csv - 1;
       //
       muonfileListStr mfl;
       mfl.run_id = run_id;
@@ -167,6 +171,7 @@ void load_file_list( std::vector<TString> &fileList_v, TString inFileList){
       else
 	mfl.ver = -1;
       mfl.nSubRun = nSubRun;
+      mfl.nMuonsPerRun = nMuonsPerRun;
       _muonfileListStr_vec.push_back(mfl);
       //
       if(verbosity>1)
@@ -184,7 +189,8 @@ void convert2root(const std::vector<TString> &fileList_v, TString outputRootFile
 	      _muonfileListStr_vec.at(i).month,
 	      _muonfileListStr_vec.at(i).day,
 	      _muonfileListStr_vec.at(i).ver,
-	      _muonfileListStr_vec.at(i).nSubRun);
+	      _muonfileListStr_vec.at(i).nSubRun,
+	      _muonfileListStr_vec.at(i).nMuonsPerRun);
   //
   //
   TFile *hfile = new TFile(outputRootFile, "RECREATE", "Simtel log data", 1);
@@ -208,6 +214,7 @@ void convert2root(const std::vector<TString> &fileList_v, TString outputRootFile
   tree->Branch("day", &muobstr.day, "day/I");
   tree->Branch("ver", &muobstr.ver, "ver/I");
   tree->Branch("nSubRun", &muobstr.nSubRun, "nSubRun/I");
+  tree->Branch("nMuonsPerRun", &muobstr.nMuonsPerRun, "nMuonsPerRun/I");
   //
   tree->Branch("event_id", &muobstr.event_id, "event_id/I");
   tree->Branch("event_time",  &muobstr.event_time, "event_time/D");
@@ -246,7 +253,7 @@ void convert2root(const std::vector<TString> &fileList_v, TString outputRootFile
   hfile->Close();
 }
 
-void read_file(TString file_name, Int_t run_id,  Int_t year,  Int_t month,  Int_t day,  Int_t ver,  Int_t nSubRun){
+void read_file(TString file_name, Int_t run_id,  Int_t year,  Int_t month,  Int_t day,  Int_t ver,  Int_t nSubRun, Int_t nMuonsPerRun){
   ifstream fFile(file_name.Data());
   cout<<file_name<<std::endl;
   //
@@ -316,6 +323,7 @@ void read_file(TString file_name, Int_t run_id,  Int_t year,  Int_t month,  Int_
       tmp.day=day;
       tmp.ver=ver;
       tmp.nSubRun=nSubRun;
+      tmp.nMuonsPerRun=nMuonsPerRun;
       //
       tmp.event_id=event_id;
       tmp.event_time=event_time;

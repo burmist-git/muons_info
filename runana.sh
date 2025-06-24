@@ -15,11 +15,11 @@ else
     if [ "$1" = "-d" ]; then
 	inRootFiles="./muon_file.root"
 	outHistSingleF="./histSingle.root"
-	./runana 1 $inRootFiles $outHistSingleF
+	time ./runana 1 $inRootFiles $outHistSingleF
     elif [ "$1" = "-l" ]; then
 	rootFilesList="./rootFileList.dat"
 	outHistF="./hist.root"
-	./runana 0 $rootFilesList $outHistF
+	time ./runana 0 $rootFilesList $outHistF
     elif [ "$1" = "-c" ]; then
 	make clean; make
     elif [ "$1" = "-h" ]; then

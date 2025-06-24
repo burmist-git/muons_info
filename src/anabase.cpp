@@ -174,6 +174,7 @@ void anabase::Init(TTree *tree){
    fChain->SetBranchAddress("day", &day, &b_day);
    fChain->SetBranchAddress("ver", &ver, &b_ver);
    fChain->SetBranchAddress("nSubRun", &nSubRun, &b_nSubRun);
+   fChain->SetBranchAddress("nMuonsPerRun", &nMuonsPerRun, &b_nMuonsPerRun);
    fChain->SetBranchAddress("event_id", &event_id, &b_event_id);
    fChain->SetBranchAddress("event_time", &event_time, &b_event_time);
    fChain->SetBranchAddress("mc_energy", &mc_energy, &b_mc_energy);
@@ -222,4 +223,49 @@ Int_t anabase::Cut(Long64_t entry){
   // returns  1 if entry is accepted.
   // returns -1 otherwise.
   return 1;
+}
+
+void anabase::TH2D_divide( TH2D *h2_w, TH2D *h2, TH2D *h2_norm){
+  Double_t val;
+  Double_t norm;
+  Double_t val_norm;
+  for(Int_t i = 1;i<=h2_w->GetNbinsX();i++){
+    for(Int_t j = 1;j<=h2_w->GetNbinsY();j++){
+      val = h2_w->GetBinContent(i,j);
+      norm = h2->GetBinContent(i,j);
+      if(norm>0)
+        val_norm = val/norm;
+      else
+        val_norm = 0.0;
+      h2_norm->SetBinContent(i,j,val_norm);
+    }
+  }
+}
+
+void anabase::TH1D_divide( TH1D *h1_w, TH1D *h1, TH1D *h1_norm){
+  Double_t val;
+  Double_t norm;
+  Double_t val_norm;
+  for(Int_t i = 1;i<=h1_w->GetNbinsX();i++){
+    val = h1_w->GetBinContent(i);
+    norm = h1->GetBinContent(i);
+    if(norm>0)
+      val_norm = val/norm;
+    else
+      val_norm = 0.0;
+    h1_norm->SetBinContent(i,val_norm);
+  }
+}
+
+void anabase::TH1D_divide( TH1D *h1, TH1D *h1_norm, Double_t norm){
+  Double_t val;
+  Double_t val_norm;
+  for(Int_t i = 1;i<=h1->GetNbinsX();i++){
+    val = h1->GetBinContent(i);
+    if(norm>0)
+      val_norm = val/norm;
+    else
+      val_norm = 0.0;
+    h1_norm->SetBinContent(i,val_norm);
+  }
 }
