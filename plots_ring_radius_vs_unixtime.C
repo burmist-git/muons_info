@@ -1,14 +1,13 @@
-Int_t plots_rate_ver_vs_unixtime(){
+Int_t plots_ring_radius_vs_unixtime(){
   //TFile *f1 = new TFile("histSingle_rate.root");
   TFile *f1 = new TFile("histSingle.root");
   //
-  TGraph *gr_h1_rate = (TGraph*)f1->Get("gr_h1_rate");
-  TGraph *gr_h1_rate_cut = (TGraph*)f1->Get("gr_h1_rate_cut");
+  TProfile *pr_ring_radius_vs_ut_all = (TProfile*)f1->Get("pr_ring_radius_vs_ut_all");
   //
   //
   TCanvas *c1 = new TCanvas("c1","c1",10,10,1800,500);
-  c1->SetTitle("rate_ver_vs_unixtime");
-  c1->SetName("rate_ver_vs_unixtime");
+  c1->SetTitle("ring_radius_vs_unixtime");
+  c1->SetName("ring_radius_vs_unixtime");
   //
   gStyle->SetPalette(1);
   gStyle->SetFrameBorderMode(0);
@@ -20,37 +19,28 @@ Int_t plots_rate_ver_vs_unixtime(){
   c1->SetLeftMargin(0.05);
   c1->SetTopMargin(0.03);
   c1->SetBottomMargin(0.1);
-  c1->SetLogy();
+  //c1->SetLogy();
   //
-  gr_h1_rate->SetLineColor(kBlack);
-  gr_h1_rate_cut->SetLineColor(kRed+2);
-  gr_h1_rate->SetMarkerColor(kBlack);
-  gr_h1_rate_cut->SetMarkerColor(kRed+2);
-  gr_h1_rate->SetLineWidth(2.0);
-  gr_h1_rate_cut->SetLineWidth(2.0);
+  pr_ring_radius_vs_ut_all->SetLineColor(kBlack);
+  pr_ring_radius_vs_ut_all->SetLineWidth(2.0);
   //
-  TMultiGraph *mg = new TMultiGraph();  
-  mg->Add(gr_h1_rate);
-  mg->Add(gr_h1_rate_cut);
-  //
-  //
-  //
-  mg->Draw("AP");
-  mg->GetXaxis()->SetTimeDisplay(1);
+  pr_ring_radius_vs_ut_all->Draw();
+  pr_ring_radius_vs_ut_all->GetXaxis()->SetTimeDisplay(1);
   //h1_subr->GetXaxis()->SetTimeFormat("#splitline{%m/%d}{%H:%M:%S}%F1970-01-01 00:00:00");
-  mg->GetXaxis()->SetTimeFormat("#splitline{%m/%d/%y}{}%F1970-01-01 00:00:00");
-  mg->GetXaxis()->SetLabelOffset(0.025);
-  mg->GetXaxis()->SetTitle("Time");
-  mg->GetYaxis()->SetTitle("Rate, Hz");
+  pr_ring_radius_vs_ut_all->GetXaxis()->SetTimeFormat("#splitline{%m/%d/%y}{}%F1970-01-01 00:00:00");
+  pr_ring_radius_vs_ut_all->GetXaxis()->SetLabelOffset(0.025);
+  pr_ring_radius_vs_ut_all->GetXaxis()->SetTitle("Time");
+  pr_ring_radius_vs_ut_all->GetYaxis()->SetTitle("Ring radius");
   //
-  mg->SetMinimum(0.08);
-  mg->SetMaximum(50.0);
+  //pr_ring_radius_vs_ut_all->SetMinimum(0.08);
+  //pr_ring_radius_vs_ut_all->SetMaximum(50.0);
   //
   //
-  TLegend *leg = new TLegend(0.6,0.6,0.9,0.9,"","brNDC");
-  leg->AddEntry(gr_h1_rate, "Tagged", "l");
-  leg->AddEntry(gr_h1_rate_cut, "Selected", "l");
-  leg->Draw();
+
+  //TLegend *leg = new TLegend(0.6,0.6,0.9,0.9,"","brNDC");
+  //leg->AddEntry(gr_h1_rate, "Tagged", "l");
+  //leg->AddEntry(gr_h1_rate_cut, "Selected", "l");
+  //leg->Draw();
   //
   //
   /*  

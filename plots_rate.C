@@ -1,5 +1,6 @@
 Int_t plots_rate(){
-  TFile *f1 = new TFile("histSingle_rate.root");
+  //TFile *f1 = new TFile("histSingle_rate.root");
+  TFile *f1 = new TFile("histSingle.root");
   //
   TH1D *h1_rate = (TH1D*)f1->Get("h1_mean_h1_rate");
   TH1D *h1_rate_cut = (TH1D*)f1->Get("h1_mean_h1_rate_cut");

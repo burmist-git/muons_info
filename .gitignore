@@ -21,3 +21,9 @@ histSingle_2024year.root
 histSingle_rate.root
 muonrate.pdf
 muonrate_vs_ut.pdf
+histSingle_allyear.root
+histSingle_allyear_nvar.root
+muon_ring_rad.pdf
+muon_ring_size.pdf
+run_SunRun_info.pdf
+run_SunRun_info_cuts.pdf
